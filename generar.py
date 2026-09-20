@@ -214,12 +214,20 @@ def main():
     ruta = CARPETA_SALIDA / f"{estado['fecha']}_{sesion['bloque']}{sufijo}.html"
     ruta.write_text(html, encoding="utf-8")
 
+    # Copia en la raiz con nombre fijo: es lo que sirve GitHub Pages en la
+    # direccion corta, para abrir siempre el mismo link desde el celular.
+    # La version papel no pisa la principal.
+    if not papel:
+        (AQUI / "index.html").write_text(html, encoding="utf-8")
+
     print(f"\n{sesion['dia'].capitalize()} - {sesion['titulo']}")
     print(f"Carga: {estado['carga'].upper()} (recovery {estado['recovery']:.0f})")
     print(f"{len(sesion['ejercicios'])} ejercicios")
     for a in sesion["avisos"]:
         print(f"  ! {a}")
     print(f"\nHTML: {ruta}")
+    if not papel:
+        print(f"      {AQUI / 'index.html'}  (subir este a GitHub)")
 
     if con_pdf:
         pdf = exportar_pdf(html, ruta.with_suffix(".pdf"))
