@@ -1,0 +1,124 @@
+{
+  "_comentario": "Configuracion del atleta y su semana. El generador lee esto; no se toca codigo para cambiar la rutina.",
+  "atleta": {
+    "nombre": "Gianluca",
+    "edad": 23,
+    "deporte": "futbol",
+    "nivel": "amateur competitivo",
+    "pulso_maximo_observado": 176
+  },
+  "objetivo": {
+    "evento": "torneo",
+    "nombre": "el Torneo",
+    "fecha": "2026-09-26",
+    "prioridad": "llegar al torneo sin fatiga acumulada, manteniendo potencia y evitando lesion"
+  },
+  "acceso": {
+    "gimnasio": [
+      "lunes",
+      "martes",
+      "miercoles",
+      "jueves",
+      "viernes"
+    ],
+    "cancha": [
+      "sabado",
+      "domingo"
+    ],
+    "casa": [
+      "lunes",
+      "martes",
+      "miercoles",
+      "jueves",
+      "viernes",
+      "sabado",
+      "domingo"
+    ]
+  },
+  "restricciones": {
+    "tobillo": {
+      "estado": "en tratamiento con fisioterapeuta",
+      "regla": "el sistema NO prescribe rehabilitacion: eso lo lleva el fisio. Solo evita agravarlo.",
+      "evitar": [
+        "saltos unilaterales con aterrizaje",
+        "cambios de direccion bruscos sin calentamiento previo",
+        "pliometria de alto impacto con recovery bajo 50",
+        "superficies irregulares"
+      ],
+      "preferir": [
+        "trabajo bilateral cuando hay impacto",
+        "progresion de saltos: bilateral antes que unilateral",
+        "calzado estable en sesiones de potencia"
+      ]
+    }
+  },
+  "semana_tipo": {
+    "lunes": {
+      "bloque": "lower_body",
+      "lugar": "gimnasio",
+      "enfoque": "fuerza pesada de tren inferior",
+      "razon": "es el punto mas lejano del partido; el residuo de fatiga tiene 5 dias para disiparse",
+      "duracion_min": 60
+    },
+    "martes": {
+      "bloque": "upper_body",
+      "lugar": "gimnasio",
+      "enfoque": "fuerza de tren superior y tiron",
+      "razon": "las piernas descansan del trabajo pesado del lunes",
+      "duracion_min": 50
+    },
+    "miercoles": {
+      "bloque": "potencia",
+      "lugar": "gimnasio",
+      "enfoque": "pliometria, saltos, aceleraciones cortas",
+      "razon": "alta intensidad y bajo volumen: transfiere al partido sin dejar residuo",
+      "duracion_min": 45,
+      "nota_riesgo": "es la sesion que mas beneficia y la que mas lesiona si se hace cansado. Con recovery bajo 50, sustituir por movilidad."
+    },
+    "jueves": {
+      "bloque": "movilidad_core",
+      "lugar": "casa",
+      "enfoque": "movilidad de cadera y tobillo, core antirrotacion, trabajo preventivo",
+      "razon": "descarga activa antes de la semana de partido",
+      "duracion_min": 30
+    },
+    "viernes": {
+      "bloque": "activacion",
+      "lugar": "casa",
+      "enfoque": "activacion corta o descanso completo",
+      "razon": "nada que deje residuo el dia previo al partido",
+      "duracion_min": 20
+    },
+    "sabado": {
+      "bloque": "partido",
+      "lugar": "cancha",
+      "enfoque": "competencia",
+      "duracion_min": 90
+    },
+    "domingo": {
+      "bloque": "tecnica",
+      "lugar": "cancha",
+      "enfoque": "tecnica con balon: control, pase, definicion. Sin intensidad alta.",
+      "razon": "unica ventana con balon fuera del partido, pero cae el dia despues: calidad, no esfuerzo",
+      "duracion_min": 45
+    }
+  },
+  "reglas_de_carga": {
+    "_comentario": "Como el nivel calculado en datos.py modifica la sesion del dia",
+    "1_suave": {
+      "descripcion": "recovery bajo, carga previa alta o vispera de partido",
+      "accion": "sustituir el bloque por movilidad y tecnica. Nada de carga pesada ni pliometria.",
+      "intensidad_pct": 40
+    },
+    "2_moderado": {
+      "descripcion": "recovery intermedio",
+      "accion": "respetar el bloque del dia pero bajar series y carga. Sin fallo muscular.",
+      "intensidad_pct": 70
+    },
+    "3_fuerte": {
+      "descripcion": "recovery alto y sin carga acumulada",
+      "accion": "ejecutar el bloque completo segun lo planificado",
+      "intensidad_pct": 100
+    }
+  }
+}

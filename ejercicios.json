@@ -1,0 +1,413 @@
+{
+  "_comentario": "Biblioteca de ejercicios. Solo mancuernas y peso corporal, sin barra. Cada ejercicio trae 'para_que' (por que le sirve a un futbolista), ejecucion y errores comunes, para que el PDF sirva sin saber de antemano como se hace.",
+  "lower_body": [
+    {
+      "id": "sentadilla_goblet",
+      "nombre": "Sentadilla goblet",
+      "para_que": "Base de fuerza para el duelo de hombro y la salida desde parado.",
+      "material": "mancuerna",
+      "musculo": "cuadriceps, gluteo, core",
+      "series_reps": {
+        "suave": "2x10",
+        "moderado": "3x10",
+        "fuerte": "4x8"
+      },
+      "ejecucion": "Sostene una mancuerna vertical contra el pecho, agarrandola por la cabeza de arriba con las dos manos. Pies al ancho de hombros, punta de los pies ligeramente hacia afuera. Baja empujando las rodillas hacia afuera, manteniendo el pecho alto. Baja hasta que los muslos queden paralelos al piso o un poco mas. Sube empujando con todo el pie.",
+      "errores": "Dejar caer el pecho hacia adelante. Que las rodillas se vayan hacia adentro. Levantar los talones del piso.",
+      "impacto_tobillo": "bajo"
+    },
+    {
+      "id": "peso_muerto_rumano_mancuernas",
+      "nombre": "Peso muerto rumano con mancuernas",
+      "para_que": "Protege el isquio, que es donde mas se rompe un futbolista al esprintar.",
+      "material": "mancuernas",
+      "musculo": "isquiotibiales, gluteo, espalda baja",
+      "series_reps": {
+        "suave": "2x12",
+        "moderado": "3x10",
+        "fuerte": "4x8"
+      },
+      "ejecucion": "De pie con una mancuerna en cada mano frente a los muslos. Rodillas apenas flexionadas y fijas. Lleva la cadera hacia atras mientras las mancuernas bajan pegadas a las piernas. Baja hasta sentir tension en la parte de atras del muslo, no mas. Sube apretando el gluteo.",
+      "errores": "Doblar las rodillas como si fuera sentadilla. Redondear la espalda baja. Bajar demasiado buscando tocar el piso.",
+      "impacto_tobillo": "bajo",
+      "nota": "El isquio es el musculo que mas se lesiona en futbol. Este ejercicio es de los mas protectores."
+    },
+    {
+      "id": "zancada_caminando",
+      "nombre": "Zancada caminando",
+      "para_que": "Estabilidad en el apoyo de una pierna, que es como corres y pateas.",
+      "material": "mancuernas o peso corporal",
+      "musculo": "cuadriceps, gluteo, estabilidad",
+      "series_reps": {
+        "suave": "2x8 por pierna",
+        "moderado": "3x10 por pierna",
+        "fuerte": "3x12 por pierna"
+      },
+      "ejecucion": "Mancuerna en cada mano a los costados. Da un paso largo al frente y baja hasta que la rodilla de atras casi toque el piso. El torso se mantiene vertical. Empuja con el talon del pie de adelante para avanzar al siguiente paso.",
+      "errores": "Pasos cortos que cargan la rodilla. Inclinarse hacia adelante. Que la rodilla de adelante se vaya hacia adentro.",
+      "impacto_tobillo": "medio",
+      "nota": "Con el tobillo en tratamiento, hacerlo sobre superficie plana y sin prisa."
+    },
+    {
+      "id": "step_up",
+      "nombre": "Subida al cajon",
+      "para_que": "Fuerza unilateral para el primer paso y para aguantar el contacto en carrera.",
+      "material": "mancuernas y banco o cajon",
+      "musculo": "cuadriceps, gluteo, unilateral",
+      "series_reps": {
+        "suave": "2x8 por pierna",
+        "moderado": "3x10 por pierna",
+        "fuerte": "3x12 por pierna"
+      },
+      "ejecucion": "Mancuerna en cada mano. Pone un pie completo sobre el banco a la altura de la rodilla. Sube empujando solo con esa pierna, sin impulsarte con la de abajo. Baja controlado.",
+      "errores": "Impulsarse con la pierna de abajo. Cajon demasiado alto. Bajar dejandose caer.",
+      "impacto_tobillo": "bajo"
+    },
+    {
+      "id": "elevacion_talones",
+      "nombre": "Elevacion de talones",
+      "para_que": "Refuerza el tobillo y el gemelo, que absorben cada frenada y cada cambio de ritmo.",
+      "material": "peso corporal o mancuerna",
+      "musculo": "gemelo, soleo, tobillo",
+      "series_reps": {
+        "suave": "2x15",
+        "moderado": "3x15",
+        "fuerte": "3x20"
+      },
+      "ejecucion": "De pie, sube sobre la punta de los pies lo mas alto posible y baja lento contando tres segundos. Con las dos piernas a la vez.",
+      "errores": "Rebotar arriba. Bajar rapido, que es donde esta el beneficio.",
+      "impacto_tobillo": "bajo",
+      "nota": "Bilateral a proposito. El fisio decide cuando pasar a una pierna."
+    }
+  ],
+  "upper_body": [
+    {
+      "id": "press_banca_mancuernas",
+      "nombre": "Press de pecho con mancuernas",
+      "para_que": "Empuje para el duelo cuerpo a cuerpo y para proteger la pelota de espaldas.",
+      "material": "mancuernas y banco",
+      "musculo": "pectoral, triceps, hombro",
+      "series_reps": {
+        "suave": "2x12",
+        "moderado": "3x10",
+        "fuerte": "4x8"
+      },
+      "ejecucion": "Acostado en el banco, mancuerna en cada mano a la altura del pecho, codos a unos 45 grados del cuerpo. Empuja hacia arriba hasta casi estirar los brazos. Baja controlado hasta sentir estiramiento en el pecho.",
+      "errores": "Abrir los codos a 90 grados, que castiga el hombro. Chocar las mancuernas arriba. Rebotar en el pecho.",
+      "impacto_tobillo": "nulo"
+    },
+    {
+      "id": "remo_mancuerna",
+      "nombre": "Remo a una mano",
+      "para_que": "Espalda fuerte para aguantar el agarron y mantener la postura al esprintar.",
+      "material": "mancuerna y banco",
+      "musculo": "dorsal, romboides, biceps",
+      "series_reps": {
+        "suave": "2x12 por lado",
+        "moderado": "3x10 por lado",
+        "fuerte": "4x10 por lado"
+      },
+      "ejecucion": "Apoya una rodilla y la mano del mismo lado en el banco. La otra mano sostiene la mancuerna colgando. Tira del codo hacia atras y arriba, pegado al cuerpo, llevando la mancuerna hacia la cadera. Baja estirando completo.",
+      "errores": "Rotar el torso para ayudarse. Tirar con el biceps en vez de la espalda. Encoger el hombro.",
+      "impacto_tobillo": "nulo"
+    },
+    {
+      "id": "press_hombro_mancuernas",
+      "nombre": "Press de hombro",
+      "para_que": "Hombro solido para el choque y para el saque de banda largo.",
+      "material": "mancuernas",
+      "musculo": "deltoides, triceps, core",
+      "series_reps": {
+        "suave": "2x12",
+        "moderado": "3x10",
+        "fuerte": "3x8"
+      },
+      "ejecucion": "Sentado o de pie, mancuernas a la altura de las orejas con las palmas al frente. Empuja hacia arriba sin bloquear los codos de golpe. Baja controlado.",
+      "errores": "Arquear la espalda baja para empujar mas. Bajar solo hasta la mitad.",
+      "impacto_tobillo": "nulo"
+    },
+    {
+      "id": "dominadas_o_jalon",
+      "nombre": "Dominadas (o jalon si no salen)",
+      "para_que": "Fuerza de tiron: te sostiene el torso cuando te empujan en el aire.",
+      "material": "barra fija o maquina de jalon",
+      "musculo": "dorsal, biceps",
+      "series_reps": {
+        "suave": "2x maximo",
+        "moderado": "3x maximo",
+        "fuerte": "4x maximo"
+      },
+      "ejecucion": "Colgado con agarre un poco mas ancho que los hombros. Tira llevando el pecho hacia la barra, no la barbilla. Baja hasta estirar completo.",
+      "errores": "Balancearse. No bajar completo. Encoger los hombros al inicio del tiron.",
+      "impacto_tobillo": "nulo"
+    },
+    {
+      "id": "face_pull_mancuerna",
+      "nombre": "Elevacion posterior inclinado",
+      "para_que": "Corrige la postura adelantada y previene la molestia de hombro al caer.",
+      "material": "mancuernas ligeras",
+      "musculo": "deltoides posterior, trapecio medio",
+      "series_reps": {
+        "suave": "2x15",
+        "moderado": "3x15",
+        "fuerte": "3x15"
+      },
+      "ejecucion": "Inclinado hacia adelante desde la cadera, mancuernas ligeras colgando. Abre los brazos hacia los costados como alas, sin doblar mucho el codo. Aprieta arriba un segundo.",
+      "errores": "Usar demasiado peso y terminar haciendo remo. Subir con impulso.",
+      "impacto_tobillo": "nulo",
+      "nota": "Compensa la postura adelantada de quien pasa el dia sentado."
+    }
+  ],
+  "potencia": [
+    {
+      "id": "salto_cajon",
+      "nombre": "Salto al cajon",
+      "para_que": "Transfiere al salto de cabeceo y al primer paso explosivo.",
+      "material": "cajon",
+      "series_reps": {
+        "suave": "omitir",
+        "moderado": "3x5",
+        "fuerte": "4x5"
+      },
+      "ejecucion": "Parate a un paso del cajon. Baja rapido a media sentadilla y salta con los dos pies, aterrizando suave y completo sobre el cajon. BAJA CAMINANDO, no saltando.",
+      "errores": "Bajar saltando del cajon, que es donde se lesiona la gente. Elegir un cajon demasiado alto. Aterrizar con el talon colgando del borde.",
+      "impacto_tobillo": "medio",
+      "nota": "Bilateral y bajando caminando: es la version mas segura para un tobillo en tratamiento."
+    },
+    {
+      "id": "salto_vertical",
+      "nombre": "Salto vertical con contramovimiento",
+      "para_que": "Gana centimetros en el juego aereo y potencia en el arranque.",
+      "material": "ninguno",
+      "series_reps": {
+        "suave": "omitir",
+        "moderado": "3x5",
+        "fuerte": "4x6"
+      },
+      "ejecucion": "De pie, baja rapido a media sentadilla y salta lo mas alto posible estirando todo el cuerpo. Aterriza con rodillas flexionadas, absorbiendo. Descansa unos segundos entre repeticiones: buscas altura, no cansancio.",
+      "errores": "Encadenar saltos sin pausa, que lo convierte en cardio y no en potencia. Aterrizar con piernas rigidas.",
+      "impacto_tobillo": "medio"
+    },
+    {
+      "id": "aceleracion_20m",
+      "nombre": "Aceleracion de 20 metros",
+      "para_que": "Los primeros 20 metros deciden la mayoria de las jugadas del partido.",
+      "material": "espacio",
+      "series_reps": {
+        "suave": "omitir",
+        "moderado": "4 repeticiones",
+        "fuerte": "6 repeticiones"
+      },
+      "ejecucion": "Desde parado, arranca a maxima velocidad 20 metros y desacelera progresivamente en los siguientes 10. Camina de vuelta al punto de partida, eso es el descanso. Al menos 60 segundos entre repeticiones.",
+      "errores": "No descansar lo suficiente. Frenar de golpe al final. Hacerlo sin calentar.",
+      "impacto_tobillo": "alto",
+      "nota": "Requiere calentamiento completo. Omitir si el tobillo molesta ese dia."
+    },
+    {
+      "id": "sentadilla_salto",
+      "nombre": "Sentadilla con salto",
+      "para_que": "Ensena a absorber y devolver fuerza rapido, como al cambiar de direccion.",
+      "material": "peso corporal",
+      "series_reps": {
+        "suave": "omitir",
+        "moderado": "3x6",
+        "fuerte": "3x8"
+      },
+      "ejecucion": "Baja a media sentadilla y salta hacia arriba. Al caer, absorbe bajando de nuevo y encadena. Manten el pecho alto todo el tiempo.",
+      "errores": "Bajar demasiado, que quita velocidad. Aterrizar ruidoso, que indica que no estas absorbiendo.",
+      "impacto_tobillo": "medio"
+    },
+    {
+      "id": "skipping_alto",
+      "nombre": "Skipping alto",
+      "para_que": "Mejora la frecuencia de paso y el contacto rapido con el piso.",
+      "material": "ninguno",
+      "series_reps": {
+        "suave": "2x20 metros",
+        "moderado": "3x20 metros",
+        "fuerte": "3x30 metros"
+      },
+      "ejecucion": "Avanza elevando la rodilla a la altura de la cadera en cada paso, con contacto rapido del pie en el piso. Brazos acompanando.",
+      "errores": "Inclinarse hacia atras. Contacto lento con el piso.",
+      "impacto_tobillo": "bajo",
+      "nota": "Sirve tambien como calentamiento del bloque de potencia."
+    }
+  ],
+  "movilidad_core": [
+    {
+      "id": "plancha",
+      "nombre": "Plancha frontal",
+      "para_que": "Nucleo firme para que la fuerza de la pierna llegue entera al balon.",
+      "material": "ninguno",
+      "series_reps": {
+        "suave": "3x30 seg",
+        "moderado": "3x45 seg",
+        "fuerte": "3x60 seg"
+      },
+      "ejecucion": "Apoyado en antebrazos y puntas de los pies. Cuerpo en linea recta de la cabeza a los talones. Aprieta el gluteo y mete un poco la pelvis. Respira normal.",
+      "errores": "Subir la cadera. Dejar caer la espalda baja. Aguantar la respiracion.",
+      "impacto_tobillo": "nulo"
+    },
+    {
+      "id": "plancha_lateral",
+      "nombre": "Plancha lateral",
+      "para_que": "Aguanta el empuje lateral sin perder el eje al disputar la pelota.",
+      "material": "ninguno",
+      "series_reps": {
+        "suave": "2x20 seg por lado",
+        "moderado": "3x30 seg por lado",
+        "fuerte": "3x45 seg por lado"
+      },
+      "ejecucion": "De lado, apoyado en un antebrazo y el canto del pie. Sube la cadera hasta formar una linea recta. Manten el hombro sobre el codo.",
+      "errores": "Dejar caer la cadera. Rotar el torso hacia el piso.",
+      "impacto_tobillo": "nulo"
+    },
+    {
+      "id": "puente_gluteo",
+      "nombre": "Puente de gluteo",
+      "para_que": "Gluteo fuerte: mas potencia al esprintar y menos carga sobre el isquio.",
+      "material": "peso corporal o mancuerna",
+      "series_reps": {
+        "suave": "2x15",
+        "moderado": "3x15",
+        "fuerte": "3x20"
+      },
+      "ejecucion": "Acostado boca arriba, rodillas dobladas y pies apoyados. Sube la cadera apretando el gluteo hasta formar una linea de rodilla a hombro. Aguanta un segundo arriba.",
+      "errores": "Empujar con la espalda baja en vez del gluteo. Subir demasiado y arquear la espalda.",
+      "impacto_tobillo": "nulo"
+    },
+    {
+      "id": "movilidad_cadera_90_90",
+      "nombre": "Movilidad de cadera 90/90",
+      "para_que": "Cadera suelta para abrir el pie al pasar y para cambiar de direccion.",
+      "material": "ninguno",
+      "series_reps": {
+        "suave": "2x8 por lado",
+        "moderado": "2x10 por lado",
+        "fuerte": "2x10 por lado"
+      },
+      "ejecucion": "Sentado en el piso, una pierna al frente doblada a 90 grados y la otra al costado tambien a 90. Rota las dos piernas al otro lado sin usar las manos. Pecho alto.",
+      "errores": "Ayudarse con las manos todo el tiempo. Redondear la espalda.",
+      "impacto_tobillo": "nulo",
+      "nota": "La cadera rigida hace que el trabajo lo absorban rodilla y tobillo."
+    },
+    {
+      "id": "dead_bug",
+      "nombre": "Dead bug",
+      "para_que": "Coordina brazo y pierna contraria, que es el patron de la carrera y del remate.",
+      "material": "ninguno",
+      "series_reps": {
+        "suave": "2x8 por lado",
+        "moderado": "3x10 por lado",
+        "fuerte": "3x12 por lado"
+      },
+      "ejecucion": "Boca arriba, brazos al techo y rodillas dobladas a 90 grados en el aire. Estira un brazo hacia atras y la pierna contraria al frente, sin que la espalda baja se despegue del piso. Vuelve y alterna.",
+      "errores": "Que la espalda baja se arquee. Ir rapido.",
+      "impacto_tobillo": "nulo"
+    }
+  ],
+  "activacion": [
+    {
+      "id": "movilidad_dinamica",
+      "nombre": "Movilidad dinamica general",
+      "para_que": "Prepara la articulacion para el gesto del partido sin dejar cansancio.",
+      "material": "ninguno",
+      "series_reps": {
+        "suave": "8 min",
+        "moderado": "8 min",
+        "fuerte": "8 min"
+      },
+      "ejecucion": "Circulos de cadera, balanceos de pierna al frente y al costado, rotaciones de tronco, circulos de tobillo. Movimiento continuo, sin sostener posiciones.",
+      "errores": "Hacer estiramiento estatico largo, que baja el rendimiento antes de competir.",
+      "impacto_tobillo": "nulo"
+    },
+    {
+      "id": "trote_suave",
+      "nombre": "Trote suave",
+      "para_que": "Mueve la sangre y acelera la recuperacion sin sumar carga.",
+      "material": "espacio",
+      "series_reps": {
+        "suave": "10 min",
+        "moderado": "12 min",
+        "fuerte": "12 min"
+      },
+      "ejecucion": "Trote a ritmo conversacional, donde podrias hablar sin quedarte sin aire. Pulso por debajo del 65% del maximo.",
+      "errores": "Acelerar porque se siente facil. El objetivo es circular sangre, no entrenar.",
+      "impacto_tobillo": "bajo"
+    },
+    {
+      "id": "activacion_gluteo",
+      "nombre": "Activacion de gluteo",
+      "para_que": "Despierta el gluteo para que no lo supla el isquio durante el partido.",
+      "material": "ninguno",
+      "series_reps": {
+        "suave": "2x12",
+        "moderado": "2x15",
+        "fuerte": "2x15"
+      },
+      "ejecucion": "Puente de gluteo a un ritmo lento, y patadas de gluteo en cuadrupedia. Buscas sentir el musculo trabajando, no cansarlo.",
+      "errores": "Convertirlo en entrenamiento de fuerza el dia previo al partido.",
+      "impacto_tobillo": "nulo"
+    }
+  ],
+  "tecnica": [
+    {
+      "id": "control_orientado",
+      "nombre": "Control orientado",
+      "para_que": "Te ahorra un toque y con eso ganas el tiempo que define la jugada.",
+      "material": "balon y pared o companero",
+      "series_reps": {
+        "suave": "10 min",
+        "moderado": "12 min",
+        "fuerte": "15 min"
+      },
+      "ejecucion": "Recibe el balon y en el mismo toque orientalo hacia donde vas a jugar despues. Alterna perfil: un bloque con pie derecho, otro con izquierdo. Contra la pared sirve igual.",
+      "errores": "Controlar y despues acomodar en un segundo toque. Practicar solo con el pie bueno.",
+      "impacto_tobillo": "bajo"
+    },
+    {
+      "id": "pase_precision",
+      "nombre": "Pase de precision",
+      "para_que": "El pase preciso sostiene la posesion; el fuerte la regala.",
+      "material": "balon y pared",
+      "series_reps": {
+        "suave": "10 min",
+        "moderado": "12 min",
+        "fuerte": "15 min"
+      },
+      "ejecucion": "Marca un objetivo en la pared. Pases con el interior buscando dar en el punto, a distancia media. Cuenta aciertos: buscas un porcentaje, no volumen.",
+      "errores": "Pegar fuerte en vez de preciso. No usar el pie menos habil.",
+      "impacto_tobillo": "bajo"
+    },
+    {
+      "id": "conduccion_conos",
+      "nombre": "Conduccion entre conos",
+      "para_que": "Cabeza arriba con balon: ves la opcion de pase antes de recibir.",
+      "material": "balon y conos",
+      "series_reps": {
+        "suave": "8 min",
+        "moderado": "10 min",
+        "fuerte": "12 min"
+      },
+      "ejecucion": "Conos en linea separados unos dos metros. Conduce zigzagueando con toques cortos, usando ambos perfiles. Cabeza arriba: mira al frente, no al balon.",
+      "errores": "Mirar el balon todo el tiempo. Toques largos que hacen perder el control.",
+      "impacto_tobillo": "medio",
+      "nota": "Con el tobillo en tratamiento, empezar lento y ampliar la separacion entre conos."
+    },
+    {
+      "id": "definicion",
+      "nombre": "Definicion",
+      "para_que": "Colocar vence al arquero mas veces que pegarle fuerte.",
+      "material": "balon y arco",
+      "series_reps": {
+        "suave": "omitir",
+        "moderado": "10 min",
+        "fuerte": "15 min"
+      },
+      "ejecucion": "Remates desde el borde del area buscando los palos. Alterna interior y empeine. Prioriza colocacion sobre potencia.",
+      "errores": "Pegarle fuerte sin apuntar. Rematar cansado, que arraiga mala tecnica.",
+      "impacto_tobillo": "alto",
+      "nota": "Omitir si el tobillo molesta. El remate carga el tobillo de apoyo mas de lo que parece."
+    }
+  ]
+}
