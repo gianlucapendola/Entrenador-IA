@@ -23,12 +23,22 @@ from whoop_auth import api_get
 FECHA_TORNEO = "2026-09-26"
 DIA_DE_PARTIDO = 5
 
-# Ventana movil para la linea base.
-# Se acorto de 30 a 10 dias: el 14/09 el sensor empezo a medir mejor (se limpio)
-# y el HRV salto de nivel sin que el pulso en reposo se moviera. Una ventana larga
-# mezcla las dos escalas y da comparaciones infladas. Volver a 30 cuando haya
-# historial suficiente con la medicion nueva.
-VENTANA_BASE = 10
+# Ventana movil para la linea base del HRV.
+#
+# El estandar en monitoreo de deportistas son 7 dias para sensibilidad y 30 para
+# tendencia de fondo. Aca la ventana se adapta sola por un motivo concreto:
+# el 14/09/2026 hubo un quiebre en la serie. El HRV salto de un rango de 50-85
+# a uno de 95-156 sin que el pulso en reposo se moviera, lo que descarta un
+# cambio fisiologico y apunta a una mejora en la calidad de la senal del sensor.
+#
+# Promediar a traves de un quiebre estructural mezcla dos escalas y da
+# comparaciones infladas. Asi que hasta acumular VENTANA_LARGA dias posteriores
+# al quiebre se usa una ventana corta con datos homogeneos; despues, el estandar
+# de 30 dias. Cuando la fecha del quiebre quede fuera del alcance util, se puede
+# poner FECHA_QUIEBRE = None y queda la ventana larga siempre.
+FECHA_QUIEBRE = "2026-09-14"
+VENTANA_CORTA = 10
+VENTANA_LARGA = 30
 
 # Cortes de recovery (los mismos que usa WHOOP para sus colores)
 CORTE_ROJO = 34
@@ -210,6 +220,25 @@ def _dias_al_partido(hoy):
     return faltan_semana
 
 
+def _ventana_base(rec, fecha):
+    """Elige el largo de la ventana segun cuantos dias hay tras el quiebre.
+
+    Devuelve VENTANA_CORTA mientras no se acumulen VENTANA_LARGA dias de datos
+    posteriores al quiebre; despues, VENTANA_LARGA. El cambio es automatico:
+    no hay que acordarse de volver a tocar el codigo.
+    """
+    if not FECHA_QUIEBRE:
+        return VENTANA_LARGA
+
+    quiebre = datetime.strptime(FECHA_QUIEBRE, "%Y-%m-%d").date()
+    if fecha < quiebre:
+        # dias anteriores al quiebre: su propia escala, ventana estandar
+        return VENTANA_LARGA
+
+    posteriores = len(rec[(rec["fecha"] >= quiebre) & (rec["fecha"] < fecha)])
+    return VENTANA_LARGA if posteriores >= VENTANA_LARGA else VENTANA_CORTA
+
+
 def estado_de_hoy(d=None):
     """Devuelve el veredicto del dia: nivel de carga y por que."""
     if d is None:
@@ -225,7 +254,8 @@ def estado_de_hoy(d=None):
     # Linea base movil, excluyendo hoy para no contaminar la comparacion.
     # Mediana y no promedio: el HRV tiene picos sueltos por mala lectura del
     # sensor, y un solo valor raro corre el promedio varios puntos.
-    base = rec[rec["fecha"] < fecha].tail(VENTANA_BASE)
+    ventana = _ventana_base(rec, fecha)
+    base = rec[rec["fecha"] < fecha].tail(ventana)
     hrv_base = base["hrv"].median() if len(base) >= 5 else None
     desvio_hrv = None
     if hrv_base:
@@ -268,6 +298,7 @@ def estado_de_hoy(d=None):
         "recovery": hoy["recovery"],
         "hrv": round(hoy["hrv"], 1),
         "hrv_base": round(hrv_base, 1) if hrv_base else None,
+        "ventana_base": ventana,
         "desvio_hrv_pct": desvio_hrv,
         "pulso_reposo": hoy["pulso_reposo"],
         "strain_previo": strain_previo,
