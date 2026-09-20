@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Tecnica &middot; Domingo 20 de septiembre</title>
+<style>
+/* ============================================================
+   RUTINA DIARIA - A4 vertical
+   ------------------------------------------------------------
+   Plantilla Jinja2. Se emite UNA sola .page con la clase de
+   estado que corresponda:
+     .state-fuerte | .state-moderado | .state-suave
+   (+ .theme-paper si va a imprimirse en papel)
+
+   Notas de render (WeasyPrint):
+   - Sin CSS Grid: soporte parcial. Todo con flex.
+   - Sin `gap`: se usan margenes.
+   - Para anclar el pie abajo, quien crece es la lista:
+     .page > .exs { flex: 1 1 auto }
+   - Los hijos de .page llevan flex-shrink: 0, para recortar
+     abajo en vez de solapar bloques en un dia cargado.
+   - El anillo lleva el color tambien como atributo stroke=
+     porque las variables CSS no siempre cascadean en SVG inline.
+       stroke-dasharray  = 2 * pi * 50 = 314.16
+       stroke-dashoffset = 314.16 * (1 - recuperacion/100)
+   - Fuentes desde Google Fonts, con caida a fuente de sistema.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap');
+
+@page { size: A4; margin: 0; }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* neutros — tema oscuro */
+  --bg:        #08090A;
+  --surface:   #111417;
+  --surface-2: #191D21;
+  --line:      #1E2327;
+  --ink:       #F4F5F6;
+  --ink-2:     #9AA1A7;
+  --ink-3:     #6C7379;
+  --ring-track:#1E2327;
+}
+
+/* ---------- estados de carga: el único acento de la página ---------- */
+.state-fuerte   { --accent:#16E08B; --accent-dim:#0C2E20; }
+.state-moderado { --accent:#FFB224; --accent-dim:#33250A; }
+.state-suave    { --accent:#FF4D4F; --accent-dim:#35110F; }
+
+/* ---------- variante papel (impresión en blanco y negro) ---------- */
+.theme-paper {
+  --bg:        #FFFFFF;
+  --surface:   #F3F3F1;
+  --surface-2: #E9E9E5;
+  --line:      #DCDCD5;
+  --ink:       #0D0E0F;
+  --ink-2:     #4A4E52;
+  --ink-3:     #74797E;
+  --ring-track:#E4E4DE;
+}
+.theme-paper.state-fuerte   { --accent:#0B7A45; --accent-dim:#E4F2EA; }
+.theme-paper.state-moderado { --accent:#8A5A00; --accent-dim:#FAF0DA; }
+.theme-paper.state-suave    { --accent:#B3241B; --accent-dim:#FBE7E4; }
+
+body {
+  font-family: 'Archivo', 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
+.page {
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  overflow: hidden;
+  padding: 34px 40px 28px;
+  background: var(--bg);
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  page-break-after: always;
+}
+.page:last-child { page-break-after: auto; }
+/* los hijos no se comprimen: si un día trae demasiado contenido,
+   preferimos recortar abajo antes que solapar bloques */
+.page > * { flex: 0 0 auto; }
+
+.label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* ============================ 1. CABECERA ============================ */
+.eyebrow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.title {
+  margin-top: 10px;
+  font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 38px;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.chips { margin-top: 8px; }
+.chip {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 4px 10px 5px;
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 13px;
+  color: var(--ink-2);
+}
+
+/* ====================== 2. MÉTRICAS PRINCIPALES ====================== */
+.hero {
+  margin-top: 14px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 92% 0%, var(--accent-dim), rgba(0,0,0,0) 62%),
+    var(--surface);
+  display: flex;
+  align-items: center;
+}
+
+.hero__rec { flex: 0 0 auto; width: 106px; text-align: center; }
+.ring { position: relative; width: 106px; height: 106px; }
+.ring svg { display: block; }
+.ring__fill { stroke: var(--accent); }
+.ring__track { stroke: var(--ring-track); }
+.ring__text {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ring__num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 30px;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.ring__num span { font-size: 14px; color: var(--ink-3); }
+.ring__cap {
+  margin-top: 7px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.hero__load { flex: 0 0 auto; width: 214px; margin-left: 22px; }
+.load__word {
+  margin-top: 6px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 32px;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.segbar { display: flex; margin-top: 10px; }
+.seg {
+  flex: 1 1 auto;
+  height: 7px;
+  margin-right: 4px;
+  border-radius: 2px;
+  background: var(--line);
+}
+.seg:last-child { margin-right: 0; }
+.seg.on { background: var(--accent); }
+.load__sub {
+  margin-top: 8px;
+  font-size: 11.5px;
+  line-height: 14px;
+  color: var(--ink-2);
+}
+.load__sub b { color: var(--ink); font-weight: 600; }
+
+.hero__stats { flex: 1 1 auto; margin-left: 22px; }
+.stat + .stat { margin-top: 12px; }
+.stat__val {
+  margin-top: 2px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 27px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.stat__val span { font-size: 12px; font-weight: 500; color: var(--ink-3); }
+.stat__sub { margin-top: 1px; font-size: 11px; line-height: 14px; color: var(--ink-2); }
+
+/* ====================== 3. MÉTRICAS SECUNDARIAS ====================== */
+.minors { display: flex; margin-top: 12px; }
+.minor { flex: 1 1 0; padding-right: 14px; }
+.minor__val {
+  margin-top: 4px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+/* ============================ 4. CRITERIO ============================ */
+.criterio {
+  margin-top: 12px;
+  font-size: 12.5px;
+  line-height: 18px;
+  color: var(--ink-2);
+}
+.criterio b {
+  margin-right: 7px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ========================= aviso de sustitución ====================== */
+.notice {
+  display: flex;
+  margin-top: 10px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: var(--accent-dim);
+  font-size: 12px;
+  line-height: 16.5px;
+  color: var(--ink);
+}
+.notice b {
+  margin-right: 8px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+/* ============================ 5. INSIGHTS ============================ */
+.insights { margin-top: 12px; }
+.ins {
+  display: flex;
+  margin-top: 5px;
+  padding: 7px 12px;
+  border-radius: 10px;
+}
+.ins .dot {
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  margin: 5px 10px 0 0;
+  border-radius: 50%;
+  background: var(--ink-3);
+}
+.ins p { font-size: 12px; line-height: 16.5px; color: var(--ink-2); }
+.ins--alert { background: var(--surface); }
+.ins--alert .dot { background: var(--accent); }
+.ins--alert p { color: var(--ink); }
+
+/* ============================= 6. SESIÓN ============================= */
+.sessionhead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 13px;
+}
+.sessionhead .label { font-size: 11.5px; color: var(--ink); letter-spacing: 0.14em; }
+.sessionhead span.meta { font-size: 11px; color: var(--ink-3); }
+
+/* la lista absorbe el espacio sobrante: en día de partido o carga suave
+   la página termina antes y el pie se queda anclado abajo.
+   (flex-grow en vez de `margin-top:auto`, que WeasyPrint no reparte) */
+.page > .exs { flex: 1 1 auto; }
+.exs { margin-top: 8px; list-style: none; }
+.ex + .ex { margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--line); }
+
+.ex__top { display: flex; align-items: baseline; }
+.ex__n {
+  flex: 0 0 auto;
+  width: 22px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  font-size: 11.5px;
+  color: var(--ink-3);
+}
+.ex__name {
+  flex: 1 1 auto;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.pill {
+  flex: 0 0 auto;
+  margin-left: 12px;
+  padding: 3px 9px 4px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 13px;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+.ex__why {
+  margin: 4px 0 0 22px;
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 17px;
+  color: var(--accent);
+}
+.ex__body { display: flex; margin: 6px 0 0 22px; }
+.ex__do { flex: 1 1 auto; padding-right: 20px; }
+.ex__side { flex: 0 0 auto; width: 210px; }
+.ex__body p { font-size: 11.5px; line-height: 15px; color: var(--ink-2); }
+.ex__body p + p { margin-top: 2px; }
+.ex__body b { font-weight: 600; color: var(--ink-3); }
+
+/* fila compacta: calentamiento, y degradación cuando sobran ejercicios */
+.ex--compact { display: flex; align-items: baseline; }
+.ex--compact .ex__name { flex: 0 0 auto; width: 190px; font-size: 14px; }
+.ex--compact .ex__why {
+  flex: 1 1 auto;
+  margin: 0 12px 0 0;
+  font-size: 12px;
+  line-height: 20px;
+  color: var(--ink-2);
+}
+
+/* ============================== 7. PIE =============================== */
+.foot {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+  line-height: 14px;
+  color: var(--ink-3);
+}
+.foot b { font-weight: 600; color: var(--ink); }
+
+/* ============================================================
+   SOLO PANTALLA
+   No afecta al PDF: dentro de @media screen, WeasyPrint lo ignora.
+   ------------------------------------------------------------
+   Sin esto el body queda blanco y la pagina se pega a la
+   izquierda con sus 210mm fijos.
+   ============================================================ */
+@media screen {
+  body {
+    background: #202325;
+    padding: 24px 0;
+    min-height: 100vh;
+  }
+  .page {
+    margin: 0 auto 24px;
+    box-shadow: 0 4px 24px rgba(0,0,0,.45);
+  }
+  .theme-paper { box-shadow: 0 4px 24px rgba(0,0,0,.25); }
+}
+
+/* ---------- celular ----------
+   La pagina mide 210mm fijos. En un telefono eso obliga a hacer
+   zoom, asi que se deja fluida y la altura crece con el contenido.
+   El PDF no se entera: esto tambien vive dentro de @media screen. */
+@media screen and (max-width: 820px) {
+  body { padding: 0; }
+  .page {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    padding: 22px 18px 24px;
+    margin: 0;
+    box-shadow: none;
+  }
+  .hero { flex-wrap: wrap; }
+  .hero__stats { margin-top: 12px; }
+  .minors { flex-wrap: wrap; }
+  .minor { flex: 1 0 45%; margin-bottom: 10px; }
+  .ex__body { display: block; }
+  .ex__side { margin-top: 6px; }
+  .ex--compact { display: block; }
+  .ex--compact .ex__name { width: auto; }
+}
+</style>
+</head>
+<body>
+
+<section class="page state-fuerte">
+
+  <div class="eyebrow">
+    <span>Rutina diaria</span>
+    <span>Domingo 20 de septiembre</span>
+  </div>
+  <h1 class="title">Tecnica</h1>
+  <div class="chips">
+    <span class="chip">Cancha</span>
+    <span class="chip">45 min</span>
+  </div>
+
+  <div class="hero">
+    <div class="hero__rec">
+      <div class="ring">
+        <svg viewBox="0 0 120 120" width="106" height="106">
+          <circle class="ring__track" cx="60" cy="60" r="50" fill="none"
+                  stroke="#1E2327" stroke-width="9"/>
+          <circle class="ring__fill" cx="60" cy="60" r="50" fill="none"
+                  stroke="#16E08B" stroke-width="9"
+                  stroke-linecap="round" stroke-dasharray="314.16"
+                  stroke-dashoffset="69.12"
+                  transform="rotate(-90 60 60)"/>
+        </svg>
+        <div class="ring__text">
+          <div class="ring__num">78<span>%</span></div>
+        </div>
+      </div>
+      <div class="ring__cap">Recuperaci&oacute;n</div>
+    </div>
+
+    <div class="hero__load">
+      <div class="label">Carga del d&iacute;a</div>
+      <div class="load__word">Fuerte</div>
+      <div class="segbar">
+        <span class="seg on"></span>
+        <span class="seg on"></span>
+        <span class="seg on"></span>
+        <span class="seg on"></span>
+        <span class="seg on"></span>
+        <span class="seg on"></span>
+        <span class="seg on"></span>
+        <span class="seg on"></span>
+        <span class="seg on"></span>
+        <span class="seg on"></span>
+      </div>
+      <div class="load__sub">Intensidad de sesi&oacute;n <b>100%</b></div>
+    </div>
+
+    <div class="hero__stats">
+      <div class="stat">
+        <div class="label">HRV</div>
+        <div class="stat__val">116<span> ms</span></div>
+        <div class="stat__sub">+36% vs base</div>
+      </div>
+      <div class="stat">
+        <div class="label">Pulso en reposo</div>
+        <div class="stat__val">60<span> lpm</span></div>
+        <div class="stat__sub">Bajando 5%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="minors">
+    <div class="minor">
+      <div class="label">VO2 m&aacute;x &middot; est.</div>
+      <div class="minor__val">49.4</div>
+    </div>
+    <div class="minor">
+      <div class="label">Ratio 7 d / 28 d</div>
+      <div class="minor__val">0.83</div>
+    </div>
+    <div class="minor">
+      <div class="label">Sue&ntilde;o anoche</div>
+      <div class="minor__val">8.1 h</div>
+    </div>
+    <div class="minor">
+      <div class="label">Promedio 7 d</div>
+      <div class="minor__val">6.8 h</div>
+    </div>
+  </div>
+
+  <p class="criterio"><b>Criterio</b>Recovery en 78 (verde).</p>
+
+  
+  <div class="insights">
+    <div class="label">Lectura del d&iacute;a</div>
+    <div class="ins">
+      <span class="dot"></span>
+      <p>Carga en 0.83 de tu promedio de 4 semanas: zona optima.</p>
+    </div>
+    <div class="ins ins--alert">
+      <span class="dot"></span>
+      <p>HRV subiendo un 93% pero el pulso en reposo no acompana. Suele ser un cambio en la medicion, no en el cuerpo: revisa ajuste y limpieza del sensor antes de leerlo como mejora.</p>
+    </div>
+    <div class="ins">
+      <span class="dot"></span>
+      <p>Pulso en reposo bajando un 5%. Señal de mejor condicion.</p>
+    </div>
+  </div>
+  
+
+  
+
+  <div class="sessionhead">
+    <span class="label">Sesi&oacute;n</span>
+    <span class="meta">
+      4
+      ejercicios
+      &middot; 45 min &middot; Intensidad 100%
+    </span>
+  </div>
+
+  <ol class="exs">
+    <li class="ex">
+      <div class="ex__top">
+        <span class="ex__n">01</span>
+        <h3 class="ex__name">Control orientado</h3>
+        <span class="pill">15 min &middot; balon y pared o companero</span>
+      </div>
+      <p class="ex__why">Te ahorra un toque y con eso ganas el tiempo que define la jugada.</p>
+      <div class="ex__body">
+        <p class="ex__do"><b>Ejecuci&oacute;n.</b> Recibe el balon y en el mismo toque orientalo hacia donde vas a jugar despues. Alterna perfil: un bloque con pie derecho, otro con izquierdo. Contra la pared sirve igual.</p>
+        <div class="ex__side">
+          <p><b>Evitar.</b> Controlar y despues acomodar en un segundo toque. Practicar solo con el pie bueno.</p>
+        </div>
+      </div>
+    </li>
+    <li class="ex">
+      <div class="ex__top">
+        <span class="ex__n">02</span>
+        <h3 class="ex__name">Pase de precision</h3>
+        <span class="pill">15 min &middot; balon y pared</span>
+      </div>
+      <p class="ex__why">El pase preciso sostiene la posesion; el fuerte la regala.</p>
+      <div class="ex__body">
+        <p class="ex__do"><b>Ejecuci&oacute;n.</b> Marca un objetivo en la pared. Pases con el interior buscando dar en el punto, a distancia media. Cuenta aciertos: buscas un porcentaje, no volumen.</p>
+        <div class="ex__side">
+          <p><b>Evitar.</b> Pegar fuerte en vez de preciso. No usar el pie menos habil.</p>
+        </div>
+      </div>
+    </li>
+    <li class="ex">
+      <div class="ex__top">
+        <span class="ex__n">03</span>
+        <h3 class="ex__name">Conduccion entre conos</h3>
+        <span class="pill">12 min &middot; balon y conos</span>
+      </div>
+      <p class="ex__why">Cabeza arriba con balon: ves la opcion de pase antes de recibir.</p>
+      <div class="ex__body">
+        <p class="ex__do"><b>Ejecuci&oacute;n.</b> Conos en linea separados unos dos metros. Conduce zigzagueando con toques cortos, usando ambos perfiles. Cabeza arriba: mira al frente, no al balon.</p>
+        <div class="ex__side">
+          <p><b>Evitar.</b> Mirar el balon todo el tiempo. Toques largos que hacen perder el control.</p>
+          <p><b>Nota.</b> Con el tobillo en tratamiento, empezar lento y ampliar la separacion entre conos.</p>
+        </div>
+      </div>
+    </li>
+    <li class="ex ex--compact">
+      <span class="ex__n">04</span>
+      <h3 class="ex__name">Definicion</h3>
+      <p class="ex__why">Colocar vence al arquero mas veces que pegarle fuerte.</p>
+      <span class="pill">15 min</span>
+    </li>
+  </ol>
+
+  <div class="foot">
+    <span>Generado el 20/09/2026 a las 11:50</span>
+    <span>Faltan <b>6 d&iacute;as</b> para el Torneo</span>
+  </div>
+
+</section>
+
+</body>
+</html>
