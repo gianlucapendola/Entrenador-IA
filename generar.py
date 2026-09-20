@@ -14,9 +14,11 @@ Uso:
     python generar.py 2026-09-22      simular otra fecha, para probar
     python generar.py --papel         version clara para imprimir
     python generar.py --pdf           ademas del HTML, exporta PDF
+    python generar.py --local         no sube nada a GitHub
 """
 
 import json
+import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -184,12 +186,56 @@ def exportar_pdf(html, ruta_pdf):
     return ruta_pdf
 
 
+# --- Publicacion ------------------------------------------------------------
+
+def publicar(fecha_txt):
+    """Sube index.html al repo para que GitHub Pages sirva la rutina del dia.
+
+    Solo se toca index.html: nunca `git add .`, para que un archivo suelto en
+    la carpeta no termine en un repositorio publico por descuido.
+    """
+    def _git(*args):
+        return subprocess.run(
+            ["git", *args], cwd=str(AQUI),
+            capture_output=True, text=True,
+        )
+
+    if not (AQUI / ".git").exists():
+        print("\n(sin publicar: la carpeta no es un repositorio git)")
+        return False
+
+    r = _git("add", "index.html")
+    if r.returncode != 0:
+        print(f"\nNo se pudo preparar el archivo: {r.stderr.strip()}")
+        return False
+
+    # Sin cambios que subir no es un error: la rutina de hoy ya estaba publicada
+    estado = _git("diff", "--cached", "--quiet", "index.html")
+    if estado.returncode == 0:
+        print("\nLa pagina ya estaba al dia, no habia nada que subir.")
+        return True
+
+    r = _git("commit", "-m", f"Rutina del {fecha_txt}")
+    if r.returncode != 0:
+        print(f"\nNo se pudo guardar el cambio: {r.stderr.strip() or r.stdout.strip()}")
+        return False
+
+    r = _git("push")
+    if r.returncode != 0:
+        print(f"\nNo se pudo subir a GitHub: {r.stderr.strip()}")
+        print("El commit quedo hecho: reintenta con `git push` cuando haya conexion.")
+        return False
+
+    return True
+
+
 # --- Main -------------------------------------------------------------------
 
 def main():
     args = sys.argv[1:]
     papel = "--papel" in args
     con_pdf = "--pdf" in args
+    sin_subir = "--local" in args
     fechas = [a for a in args if not a.startswith("--")]
 
     plan = _leer_json("planificacion.json")
@@ -233,6 +279,10 @@ def main():
         pdf = exportar_pdf(html, ruta.with_suffix(".pdf"))
         if pdf:
             print(f"PDF:  {pdf}")
+
+    if not papel and not sin_subir:
+        if publicar(estado["fecha"]):
+            print("\nPublicado: https://gianlucapendola.github.io/Entrenador-IA/")
 
 
 if __name__ == "__main__":
